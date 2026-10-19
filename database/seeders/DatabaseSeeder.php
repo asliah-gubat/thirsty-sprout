@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             Plant::create([
                 'user_id' => $demo->id, 'name' => $name, 'plant_type' => $type,
                 'personality' => config("sprout.plants.$type.personality"),
-                'hydration' => fake()->numberBetween(45, 100), 'hunger' => fake()->numberBetween(45, 100),
+                'hydration' => fake()->numberBetween(80, 100), 'hunger' => fake()->numberBetween(70, 100),
                 'xp' => $xp, 'decoration' => $decor, 'state_updated_at' => now(),
             ]);
         }
@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
                 Plant::create([
                     'user_id' => $user->id, 'name' => fake()->randomElement($names), 'plant_type' => $type,
                     'personality' => config("sprout.plants.$type.personality"),
-                    'hydration' => fake()->numberBetween(30, 100), 'hunger' => fake()->numberBetween(30, 100),
+                    'hydration' => fake()->numberBetween(80, 100), 'hunger' => fake()->numberBetween(70, 100),
                     'xp' => fake()->randomElement([0, 40, 120, 300, 520]), 'decoration' => 'none',
                     'state_updated_at' => now(),
                     'latitude' => 14.5764 + fake()->randomFloat(5, -0.02, 0.02),
