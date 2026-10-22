@@ -1,39 +1,41 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('password.store') }}">
-        @csrf
+@extends('layouts.sprout')
+@section('title', 'Choose a new password')
+@section('inline-errors', '1')
 
-        <!-- Password Reset Token -->
+@section('content')
+@php
+    $input = 'w-full rounded-lg border border-[#CFD6CA] bg-[#F8FAF5] px-3.5 py-3 text-base text-forest outline-none focus:border-leaf focus:ring-2 focus:ring-leaf/25';
+@endphp
+
+<div class="mx-auto mt-14 mb-10 w-full max-w-[480px] text-center">
+    <p class="text-sm font-semibold uppercase tracking-[0.22em] text-leaf">Fresh start</p>
+    <h1 class="mt-2 font-display text-3xl font-extrabold">Choose a new password</h1>
+    <p class="mb-7 mt-2.5 text-soil">Set a new password to get back to your garden.</p>
+
+    <form method="POST" action="{{ route('password.store') }}"
+        class="space-y-5 rounded-[20px] border border-forest/10 bg-white px-9 pb-9 pt-9 text-left shadow-sm">
+        @csrf
         <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-        <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <label for="email" class="mb-1.5 block text-sm font-semibold">Email</label>
+            <input id="email" type="email" name="email" value="{{ old('email', $request->email) }}" required autofocus autocomplete="username" class="{{ $input }}">
+            @error('email')<p class="mt-1.5 text-sm text-red-700">{{ $message }}</p>@enderror
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div>
+            <label for="password" class="mb-1.5 block text-sm font-semibold">New password</label>
+            <input id="password" type="password" name="password" required autocomplete="new-password" class="{{ $input }}">
+            @error('password')<p class="mt-1.5 text-sm text-red-700">{{ $message }}</p>@enderror
         </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        <div>
+            <label for="password_confirmation" class="mb-1.5 block text-sm font-semibold">Confirm new password</label>
+            <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password" class="{{ $input }}">
+            @error('password_confirmation')<p class="mt-1.5 text-sm text-red-700">{{ $message }}</p>@enderror
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Reset Password') }}
-            </x-primary-button>
-        </div>
+        <button class="w-full rounded-xl bg-leaf py-3.5 text-base font-semibold text-white hover:bg-leaf/90">Reset password</button>
     </form>
-</x-guest-layout>
+</div>
+@endsection
