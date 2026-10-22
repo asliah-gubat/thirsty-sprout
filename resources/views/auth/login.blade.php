@@ -1,47 +1,48 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('layouts.sprout')
+@section('title', 'Log in')
+@section('inline-errors', '1')
 
-    <form method="POST" action="{{ route('login') }}">
+@section('content')
+@php
+    $input = 'w-full rounded-lg border border-[#CFD6CA] bg-[#F8FAF5] px-3.5 py-3 text-base text-forest outline-none focus:border-leaf focus:ring-2 focus:ring-leaf/25';
+@endphp
+
+<div class="mx-auto mt-14 mb-10 w-full max-w-[480px] text-center">
+    <p class="text-sm font-semibold uppercase tracking-[0.22em] text-leaf">Welcome back</p>
+    <h1 class="mt-2 font-display text-3xl font-extrabold">Log in to your garden</h1>
+    <p class="mb-7 mt-2.5 text-soil">Your plants are ready for a little care.</p>
+
+    <form method="POST" action="{{ route('login') }}"
+        class="space-y-5 rounded-[20px] border border-forest/10 bg-white px-9 pb-9 pt-14 text-left shadow-sm">
         @csrf
 
-        <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <label for="email" class="mb-1.5 block text-sm font-semibold">Email</label>
+            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" class="{{ $input }}">
+            @error('email')<p class="mt-1.5 text-sm text-red-700">{{ $message }}</p>@enderror
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div>
+            <label for="password" class="mb-1.5 block text-sm font-semibold">Password</label>
+            <input id="password" type="password" name="password" required autocomplete="current-password" class="{{ $input }}">
+            @error('password')<p class="mt-1.5 text-sm text-red-700">{{ $message }}</p>@enderror
         </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+        <div class="flex items-center justify-between">
+            <label for="remember_me" class="inline-flex items-center gap-2 text-[15px] text-soil">
+                <input id="remember_me" type="checkbox" name="remember" class="accent-[#3F8F4A]">
+                Remember me
             </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
+                <a href="{{ route('password.request') }}" class="text-[15px] font-semibold text-leaf hover:underline">Forgot your password?</a>
             @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
         </div>
+
+        <button class="w-full rounded-xl bg-leaf py-3.5 text-base font-semibold text-white hover:bg-leaf/90">Log in</button>
     </form>
-</x-guest-layout>
+
+    <p class="mt-6 text-[15px] text-soil">New to Thirsty Sprout?
+        <a href="{{ route('register') }}" class="font-semibold text-leaf hover:underline">Create an account</a>
+    </p>
+</div>
+@endsection

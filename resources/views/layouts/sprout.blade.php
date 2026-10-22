@@ -47,10 +47,10 @@
     </header>
 
     <main class="max-w-6xl mx-auto px-4 py-6">
-        @if (session('status'))
+        @if (session('status') && ! $__env->hasSection('inline-status'))
             <div class="mb-4 rounded border border-leaf/40 bg-leaf/10 px-4 py-2 text-sm">{{ session('status') }}</div>
         @endif
-        @if ($errors->any())
+        @if ($errors->any() && ! $__env->hasSection('inline-errors'))
             <div class="mb-4 rounded border border-red-300 bg-red-50 px-4 py-2 text-sm text-red-800">
                 <ul class="list-disc ml-4">@foreach ($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul>
             </div>
