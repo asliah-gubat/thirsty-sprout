@@ -2,7 +2,7 @@
 @section('title', $plant->name)
 
 @section('content')
-<a href="{{ route('garden') }}" class="text-sm underline">Back to my garden</a>
+<a href="{{ route('garden') }}" class="text-sm underline">Back to My Garden</a>
 
 <div class="grid md:grid-cols-2 gap-6 mt-3">
     <article data-plant="{{ $plant->id }}" data-state="{{ json_encode($plant->toState()) }}" class="rounded-xl bg-white p-5 space-y-4">
@@ -19,7 +19,7 @@
             @else
                 <span class="text-soil">Open this site on your phone to view it in AR.</span>
             @endif
-            <button type="button" id="share-map" class="border border-forest rounded px-4 py-2 font-semibold">{{ $plant->latitude ? 'Update map location' : 'Share on community map' }}</button>
+            <button type="button" id="share-map" class="border border-forest rounded px-4 py-2 font-semibold">{{ $plant->latitude ? 'Update Map Location' : 'Share on Community Map' }}</button>
             <form method="POST" action="{{ route('plants.destroy', $plant) }}" onsubmit="return confirm('Remove {{ e($plant->name) }}?')">@csrf @method('DELETE')
                 <button class="border border-red-700 text-red-700 rounded px-4 py-2 font-semibold">Remove</button>
             </form>
@@ -28,7 +28,24 @@
 
     <section class="space-y-5">
         <div class="rounded-xl bg-white p-5">
-            <h2 class="font-display font-bold text-xl mb-3">Growth stages</h2>
+            <h2 class="font-display font-bold text-xl mb-2">About This Plant</h2>
+            @if ($plant->description)
+                <p class="whitespace-pre-line">{{ $plant->description }}</p>
+            @endif
+            <form method="POST" action="{{ route('plants.description', $plant) }}" class="mt-3 space-y-2">
+                @csrf
+                @method('PATCH')
+                <label for="description" class="block text-sm font-semibold">Edit plant information</label>
+                <textarea id="description" name="description" rows="4" maxlength="2000" class="w-full rounded border border-forest/30 px-3 py-2">{{ old('description', $plant->description) }}</textarea>
+                @error('description')
+                    <p class="text-sm text-red-700">{{ $message }}</p>
+                @enderror
+                <button class="bg-leaf text-white font-semibold rounded px-4 py-2">Save information</button>
+            </form>
+        </div>
+
+        <div class="rounded-xl bg-white p-5">
+            <h2 class="font-display font-bold text-xl mb-3">Growth Stages</h2>
             <div data-plant-steps class="flex flex-wrap gap-2">
                 @foreach (config('sprout.stages') as $i => $stage)
                     <span data-step="{{ $i }}" class="rounded-full border border-forest/20 px-3 py-1 text-sm bg-white">{{ $stage['name'] }} · {{ $stage['xp'] }} XP</span>
@@ -37,7 +54,7 @@
         </div>
 
         <div class="rounded-xl bg-white p-5">
-            <h2 class="font-display font-bold text-xl mb-2">Recognition photo</h2>
+            <h2 class="font-display font-bold text-xl mb-2">Recognition Photo</h2>
             @if ($plant->photoUrl())
                 <img src="{{ $plant->photoUrl() }}" alt="Recognition photo of {{ $plant->name }}" class="w-40 rounded border border-forest/20">
                 <p class="text-sm text-soil mt-2">The AR camera can find {{ $plant->name }} by this view.</p>
@@ -48,7 +65,7 @@
         </div>
 
         <div class="rounded-xl bg-white p-5">
-            <h2 class="font-display font-bold text-xl mb-3">Care history</h2>
+            <h2 class="font-display font-bold text-xl mb-3">Care History</h2>
             <ul class="space-y-2 text-sm">
                 @forelse ($logs as $log)
                     <li class="flex justify-between gap-3 border-t border-forest/10 pt-2 first:border-0 first:pt-0">

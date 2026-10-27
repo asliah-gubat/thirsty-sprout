@@ -1,19 +1,19 @@
 @extends('layouts.sprout')
-@section('title', 'My garden')
+@section('title', 'My Garden')
 
 @section('content')
 <div class="flex items-end justify-between flex-wrap gap-3 mb-6">
     <div>
-        <h1 class="font-display font-extrabold text-3xl">My garden</h1>
+        <h1 class="font-display font-extrabold text-3xl">My Garden</h1>
         <p class="text-soil">Care for your plants here, or meet them through the AR camera.</p>
     </div>
     <div class="flex gap-2 flex-wrap">
         @if ($isMobile)
-            <a href="{{ route('ar') }}" class="bg-leaf text-white font-semibold rounded px-4 py-2">Open AR camera</a>
+            <a href="{{ route('ar') }}" class="bg-leaf text-white font-semibold rounded px-4 py-2">Open AR Camera</a>
         @else
-            <span class="rounded border border-forest/30 px-4 py-2 text-sm">AR camera: open this site on your phone</span>
+            <span class="rounded border border-forest/30 px-4 py-2 text-sm">AR Camera: open this site on your phone</span>
         @endif
-        <a href="{{ route('plants.choose') }}" class="border border-forest rounded px-4 py-2 font-semibold">Adopt another plant</a>
+        <a href="{{ route('plants.choose') }}" class="border border-forest rounded px-4 py-2 font-semibold">Adopt Another Plant</a>
     </div>
 </div>
 

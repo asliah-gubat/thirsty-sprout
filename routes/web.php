@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/garden/state', [PlantController::class, 'gardenState'])->name('garden.state');
 
     Route::get('/plants/{plant}', [PlantController::class, 'show'])->name('plants.show');
+    Route::patch('/plants/{plant}/description', [PlantController::class, 'updateDescription'])->name('plants.description');
     Route::delete('/plants/{plant}', [PlantController::class, 'destroy'])->name('plants.destroy');
     Route::post('/plants/{plant}/care', [PlantController::class, 'care'])->middleware('throttle:60,1')->name('plants.care');
     Route::post('/plants/{plant}/interact', [PlantController::class, 'interact'])->middleware('throttle:60,1')->name('plants.interact');
@@ -37,4 +38,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php'; // login, register, logout (Breeze)
+require __DIR__.'/auth.php'; // login, register, logout (Breeze)

@@ -1,5 +1,5 @@
 @extends('layouts.sprout')
-@section('title', 'AR camera')
+@section('title', 'AR Camera')
 
 
 

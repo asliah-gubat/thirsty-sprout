@@ -31,7 +31,7 @@
     </form>
 
     <p class="mt-6 text-[15px] text-soil">Remembered your password?
-        <a href="{{ route('login') }}" class="font-semibold text-leaf hover:underline">Log in</a>
+        <a href="{{ route('login') }}" class="font-semibold text-leaf hover:underline">Log In</a>
     </p>
 </div>
 @endsection

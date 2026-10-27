@@ -1,5 +1,5 @@
 @extends('layouts.sprout')
-@section('title', 'Create your account')
+@section('title', 'Create Your Account')
 @section('inline-errors', '1')
 
 @section('content')
@@ -9,7 +9,7 @@
 
 <div class="mx-auto mt-14 mb-10 w-full max-w-[480px] text-center">
     <p class="text-sm font-semibold uppercase tracking-[0.22em] text-leaf">Grow something lovely</p>
-    <h1 class="mt-2 font-display text-3xl font-extrabold">Create your account</h1>
+    <h1 class="mt-2 font-display text-3xl font-extrabold">Create Your Account</h1>
     <p class="mb-7 mt-2.5 text-soil">Start a garden and meet your new plant friends.</p>
 
     <form method="POST" action="{{ route('register') }}"
@@ -40,11 +40,11 @@
             @error('password_confirmation')<p class="mt-1.5 text-sm text-red-700">{{ $message }}</p>@enderror
         </div>
 
-        <button class="w-full rounded-xl bg-leaf py-3.5 text-base font-semibold text-white hover:bg-leaf/90">Create account</button>
+        <button class="w-full rounded-xl bg-leaf py-3.5 text-base font-semibold text-white hover:bg-leaf/90">Create Account</button>
     </form>
 
     <p class="mt-6 text-[15px] text-soil">Already have an account?
-        <a href="{{ route('login') }}" class="font-semibold text-leaf hover:underline">Log in</a>
+        <a href="{{ route('login') }}" class="font-semibold text-leaf hover:underline">Log In</a>
     </p>
 </div>
 @endsection
