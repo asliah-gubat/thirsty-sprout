@@ -1,8 +1,8 @@
 @extends('layouts.sprout')
-@section('title', 'Choose a plant')
+@section('title', 'Choose Your Plant')
 
 @section('content')
-<h1 class="font-display font-extrabold text-3xl mb-1">Choose your plant</h1>
+<h1 class="font-display font-extrabold text-3xl mb-1">Choose Your Plant</h1>
 <p class="text-soil mb-5">You can adopt more later from your garden.</p>
 
 <form method="POST" action="{{ route('plants.store') }}" class="space-y-6">
@@ -26,8 +26,12 @@
 
     <div class="max-w-md space-y-3">
         <div>
-            <label for="name" class="block font-semibold mb-1">Name your plant</label>
+            <label for="name" class="block font-semibold mb-1">Name Your Plant</label>
             <input id="name" name="name" maxlength="30" value="{{ old('name') }}" required class="w-full rounded border border-forest/30 px-3 py-2">
+        </div>
+        <div>
+            <label for="description" class="block font-semibold mb-1">About Your Plant <span class="font-normal text-soil">(Optional)</span></label>
+            <textarea id="description" name="description" rows="4" maxlength="2000" class="w-full rounded border border-forest/30 px-3 py-2">{{ old('description') }}</textarea>
         </div>
 
         <label class="flex items-start gap-2 text-sm">
@@ -38,7 +42,7 @@
         <input type="hidden" name="latitude" id="lat">
         <input type="hidden" name="longitude" id="lng">
 
-        <button class="bg-leaf text-white font-semibold rounded px-6 py-3">Plant it</button>
+        <button class="bg-leaf text-white font-semibold rounded px-6 py-3">Plant It</button>
     </div>
 </form>
 @endsection

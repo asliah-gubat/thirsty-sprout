@@ -1,5 +1,5 @@
 @extends('layouts.sprout')
-@section('title', 'Log in')
+@section('title', 'Log In')
 @section('inline-errors', '1')
 
 @section('content')
@@ -9,7 +9,7 @@
 
 <div class="mx-auto mt-14 mb-10 w-full max-w-[480px] text-center">
     <p class="text-sm font-semibold uppercase tracking-[0.22em] text-leaf">Welcome back</p>
-    <h1 class="mt-2 font-display text-3xl font-extrabold">Log in to your garden</h1>
+    <h1 class="mt-2 font-display text-3xl font-extrabold">Log In to Your Garden</h1>
     <p class="mb-7 mt-2.5 text-soil">Your plants are ready for a little care.</p>
 
     <form method="POST" action="{{ route('login') }}"
@@ -38,11 +38,11 @@
             @endif
         </div>
 
-        <button class="w-full rounded-xl bg-leaf py-3.5 text-base font-semibold text-white hover:bg-leaf/90">Log in</button>
+        <button class="w-full rounded-xl bg-leaf py-3.5 text-base font-semibold text-white hover:bg-leaf/90">Log In</button>
     </form>
 
     <p class="mt-6 text-[15px] text-soil">New to Thirsty Sprout?
-        <a href="{{ route('register') }}" class="font-semibold text-leaf hover:underline">Create an account</a>
+        <a href="{{ route('register') }}" class="font-semibold text-leaf hover:underline">Create an Account</a>
     </p>
 </div>
 @endsection

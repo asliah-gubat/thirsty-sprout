@@ -7,9 +7,9 @@ use App\Models\Plant;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use Illuminate\Support\Facades\Auth;
 
 class PlantController extends Controller
 {
@@ -63,6 +63,7 @@ class PlantController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'min:2', 'max:30'],
             'plant_type' => ['required', Rule::in(array_keys(config('sprout.plants')))],
+            'description' => ['nullable', 'string', 'max:2000'],
             'latitude' => ['nullable', 'numeric', 'between:-90,90'],
             'longitude' => ['nullable', 'numeric', 'between:-180,180'],
         ]);
@@ -76,7 +77,7 @@ class PlantController extends Controller
             'state_updated_at' => now(),
         ]);
 
-        CareLog::create(['plant_id' => $plant->id, 'action' => 'adopted', 'note' => 'Chose a ' . $plant->plant_type]);
+        CareLog::create(['plant_id' => $plant->id, 'action' => 'adopted', 'note' => 'Chose a '.$plant->plant_type]);
 
         return redirect()->route('garden')->with('status', "{$plant->name} joined your garden!");
     }
@@ -108,6 +109,17 @@ class PlantController extends Controller
             'logs' => $logs,
             'isMobile' => $this->isMobile($request),
         ]);
+    }
+
+    public function updateDescription(Request $request, Plant $plant): RedirectResponse
+    {
+        $this->ownPlant($plant);
+
+        $plant->update($request->validate([
+            'description' => ['nullable', 'string', 'max:2000'],
+        ]));
+
+        return redirect()->route('plants.show', $plant)->with('status', 'Plant information updated.');
     }
 
     public function destroy(Plant $plant): RedirectResponse
@@ -247,7 +259,7 @@ class PlantController extends Controller
             CareLog::create([
                 'plant_id' => $plant->id,
                 'action' => 'grew',
-                'note' => 'Grew into a ' . config("sprout.stages.$after.name"),
+                'note' => 'Grew into a '.config("sprout.stages.$after.name"),
             ]);
         }
 
@@ -288,7 +300,7 @@ class PlantController extends Controller
                 'id' => $p->id,
                 'name' => $p->name,
                 'type' => config("sprout.plants.{$p->plant_type}.label", $p->plant_type),
-                'stage' => config('sprout.stages.' . $p->stageIndex() . '.name'),
+                'stage' => config('sprout.stages.'.$p->stageIndex().'.name'),
                 'mood' => $p->mood(),
                 'lat' => $p->latitude,
                 'lng' => $p->longitude,

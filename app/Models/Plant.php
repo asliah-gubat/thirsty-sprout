@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Plant extends Model
 {
     protected $fillable = [
-        'user_id', 'name', 'plant_type', 'personality', 'hydration', 'hunger', 'xp',
+        'user_id', 'name', 'plant_type', 'description', 'personality', 'hydration', 'hunger', 'xp',
         'decoration', 'state_updated_at', 'last_played_at', 'latitude', 'longitude',
     ];
 
@@ -84,14 +84,14 @@ class Plant extends Model
     {
         $file = $this->userFile('mind');
 
-        return file_exists($file) ? asset("targets/user/plant-{$this->id}.mind") . '?v=' . filemtime($file) : null;
+        return file_exists($file) ? asset("targets/user/plant-{$this->id}.mind").'?v='.filemtime($file) : null;
     }
 
     public function photoUrl(): ?string
     {
         $file = $this->userFile('jpg');
 
-        return file_exists($file) ? asset("targets/user/plant-{$this->id}.jpg") . '?v=' . filemtime($file) : null;
+        return file_exists($file) ? asset("targets/user/plant-{$this->id}.jpg").'?v='.filemtime($file) : null;
     }
 
     public function forgetTarget(): void

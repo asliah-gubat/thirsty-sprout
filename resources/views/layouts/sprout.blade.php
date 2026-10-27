@@ -28,19 +28,22 @@
             <a href="{{ route('home') }}" class="font-display font-extrabold text-xl tracking-tight">Thirsty Sprout</a>
             <div class="flex gap-4 text-sm ml-2">
                 @auth
-                    <a href="{{ route('garden') }}" class="hover:underline">My garden</a>
-                    @if ($onMobile)<a href="{{ route('ar') }}" class="hover:underline">AR camera</a>@endif
+                    <a href="{{ route('garden') }}" class="hover:underline">My Garden</a>
+                    @if ($onMobile)<a href="{{ route('ar') }}" class="hover:underline">AR Camera</a>@endif
                 @endauth
-                <a href="{{ route('map') }}" class="hover:underline">Community map</a>
+                <a href="{{ route('map') }}" class="hover:underline">Community Map</a>
+                @auth
+                    <a href="{{ route('profile.edit') }}" class="hover:underline">Profile</a>
+                @endauth
             </div>
             <div class="ml-auto flex items-center gap-3 text-sm">
                 @auth
                     <form method="POST" action="{{ route('logout') }}">@csrf
-                        <button class="bg-paper/10 hover:bg-paper/20 rounded px-3 py-1">Log out</button>
+                        <button class="bg-paper/10 hover:bg-paper/20 rounded px-3 py-1">Log Out</button>
                     </form>
                 @else
-                    <a href="{{ route('login') }}" class="hover:underline">Log in</a>
-                    <a href="{{ route('register') }}" class="bg-leaf rounded px-3 py-1 font-semibold">Sign up</a>
+                    <a href="{{ route('login') }}" class="hover:underline">Log In</a>
+                    <a href="{{ route('register') }}" class="bg-leaf rounded px-3 py-1 font-semibold">Sign Up</a>
                 @endauth
             </div>
         </nav>
