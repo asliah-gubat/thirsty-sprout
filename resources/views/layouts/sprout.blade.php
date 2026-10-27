@@ -32,6 +32,9 @@
                     @if ($onMobile)<a href="{{ route('ar') }}" class="hover:underline">AR Camera</a>@endif
                 @endauth
                 <a href="{{ route('map') }}" class="hover:underline">Community Map</a>
+                @auth
+                    <a href="{{ route('profile.edit') }}" class="hover:underline">Profile</a>
+                @endauth
             </div>
             <div class="ml-auto flex items-center gap-3 text-sm">
                 @auth

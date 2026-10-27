@@ -18,7 +18,13 @@ class ProfileTest extends TestCase
             ->actingAs($user)
             ->get('/profile');
 
-        $response->assertOk();
+        $response->assertOk()
+            ->assertSeeText('Delete Account')
+            ->assertSee('id="open-user-deletion-dialog"', false)
+            ->assertSee('type="button"', false)
+            ->assertSee('<dialog', false)
+            ->assertSee('id="confirm-user-deletion"', false)
+            ->assertSee('data-close-user-deletion', false);
     }
 
     public function test_profile_information_can_be_updated(): void
@@ -73,7 +79,7 @@ class ProfileTest extends TestCase
 
         $response
             ->assertSessionHasNoErrors()
-            ->assertRedirect('/');
+            ->assertRedirect(route('login'));
 
         $this->assertGuest();
         $this->assertNull($user->fresh());
